@@ -1,0 +1,45 @@
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option ula_prefix 'fd8f:f4e7:dcd8::/48'
+
+config interface 'lan'
+	option device 'eth2'
+	option proto 'dhcp'
+	option ipaddr '172.16.40.1'
+	option netmask '255.255.255.0'
+	option ip6assign '60'
+	option ifname 'eth2'
+
+config interface 'wan'
+	option device 'eth3'
+	option proto 'dhcp'
+	option ifname 'eth3'
+
+config interface 'wan6'
+	option device 'eth1'
+	option proto 'dhcpv6'
+
+config interface 'loopback_alias'
+	option ifname 'lo'
+	option proto 'static'
+	option ipaddr '172.16.0.4'
+	option netmask '255.255.255.255'
+
+config interface 'mikrotik'
+	option ifname 'eth1'
+	option proto 'static'
+	option ipaddr '172.16.1.10'
+	option netmask '255.255.255.252'
+
+config interface 'vyos'
+	option ifname 'eth0'
+	option proto 'static'
+	option ipaddr '172.16.1.14'
+	option netmask '255.255.255.252'
+

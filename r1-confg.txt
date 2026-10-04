@@ -1,0 +1,159 @@
+
+!
+! Last configuration change at 19:33:06 UTC Sun Oct 4 2026 by backup
+upgrade fpd auto
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name alberto.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+username backup privilege 15 view VISTA_BACKUP secret 5 $1$hJGJ$pWiVB791umDLJrv0mmSqE.
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+ip ssh version 2
+ip scp server enable
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.16.0.1 255.255.255.255
+!
+interface FastEthernet0/0
+ ip address 172.16.1.1 255.255.255.252
+ duplex half
+!
+interface FastEthernet1/0
+ ip address 172.16.1.5 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/1
+ ip address 172.16.10.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet2/0
+ ip address dhcp
+ negotiation auto
+!
+interface Serial3/0
+ ip address 192.168.10.130 255.255.255.0
+ serial restart-delay 0
+!
+interface Serial3/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial3/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial3/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+router ospf 1
+ router-id 172.16.0.1
+ network 172.16.1.4 0.0.0.3 area 0
+ network 172.16.0.0 0.0.255.255 area 0
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+no cdp log mismatch duplex
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+privilege exec level 1 copy running-config
+privilege exec level 1 copy
+parser view VISTA_BACKUP
+ secret 5 $1$MBEN$W/DoBWEfo/b0YxGCnXhfo1
+ commands exec include copy
+ commands exec include show privilege
+ commands exec include show
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ transport input ssh
+line vty 5 15
+ transport input ssh
+!
+!
+end
