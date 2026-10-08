@@ -10,7 +10,7 @@ dispositivo_ssh = {
 }
 
 # Rutas del archivo local y cómo se llamará en la flash del router
-archivo_origen = '/home/alberto/Escritorio/backups/Ficheros_config/r1-confg.txt'
+archivo_origen = '/home/albme/alberto/Escritorio/backups/Ficheros_config/r1-confg.txt'
 archivo_destino = 'backup_gns3.cfg' 
 
 def activar_ssh_inicial():
